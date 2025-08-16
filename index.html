@@ -143,11 +143,11 @@
     © 2025 JJ Music — Todos os direitos reservados
   </footer>
 
-  <!-- Firebase SDK -->
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
-  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+  <!-- Firebase v9+ com Realtime Database -->
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
+    import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
-  <script>
     const firebaseConfig = {
       apiKey: "AIzaSyAOqpjm9MAk78ZHY5NPGCCycl7xVWBvfB8",
       authDomain: "my-life-site-41762.firebaseapp.com",
@@ -159,21 +159,21 @@
       measurementId: "G-169C1T1W9Y"
     };
 
-    firebase.initializeApp(firebaseConfig);
-    const db = firebase.database();
-    const likesRef = db.ref("likes");
+    const app = initializeApp(firebaseConfig);
+    const db = getDatabase(app);
 
     const likeBtn = document.getElementById("likeButton");
     const likeCount = document.getElementById("likeCount");
+    const likesRef = ref(db, "likes");
 
     // Atualizar contador em tempo real
-    likesRef.on("value", (snapshot) => {
+    onValue(likesRef, (snapshot) => {
       likeCount.textContent = snapshot.val() || 0;
     });
 
     // Incrementar ao clicar
     likeBtn.addEventListener("click", () => {
-      likesRef.transaction((currentLikes) => {
+      runTransaction(likesRef, (currentLikes) => {
         return (currentLikes || 0) + 1;
       });
     });
