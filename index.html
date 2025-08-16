@@ -5,21 +5,27 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>My Life — JJ</title>
   <style>
+    /* ===== Base ===== */
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      background-color: #3a3a3a; /* cinza escuro */
-      color: #ffffff;
+      background: #3a3a3a;
+      color: #fff;
+      overflow-x: hidden;
     }
     header {
-      background-color: #4a4a4a; /* cinza mais escuro */
+      background-color: #4a4a4a;
       padding: 20px;
       text-align: center;
+      box-shadow: 0 4px 15px rgba(0,0,0,0.4);
     }
     header h1 {
       margin: 0;
       font-size: 2.5em;
+      text-shadow: 2px 2px 5px rgba(0,0,0,0.5);
     }
+
+    /* ===== Banner ===== */
     .banner {
       text-align: center;
       margin: 30px 0;
@@ -27,87 +33,154 @@
     .banner img {
       max-width: 90%;
       height: auto;
-      border-radius: 10px;
-      box-shadow: 0 0 20px #6A0DAD;
+      border-radius: 15px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.6);
+      transition: transform 0.3s;
     }
+    .banner img:hover {
+      transform: scale(1.02);
+    }
+
+    /* ===== Conteúdo ===== */
     .content {
       max-width: 800px;
       margin: auto;
       padding: 20px;
-      background-color: #5a5a5a; /* cinza médio */
-      border-radius: 10px;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      border-radius: 15px;
+      box-shadow: 0 10px 20px rgba(0,0,0,0.4);
     }
     .content h2 {
       color: #caa0ff;
+      text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
     }
-    .soundcloud {
-      margin: 30px 0;
-      text-align: center;
+    blockquote {
+      font-style: italic;
+      border-left: 4px solid #ff5500;
+      padding-left: 10px;
+      margin: 10px 0;
+      color: #ffe;
+      background: rgba(255,255,255,0.05);
+      border-radius: 8px;
     }
-    footer {
-      text-align: center;
-      padding: 20px;
-      background-color: #4a4a4a;
-      color: #fff;
-      font-size: 0.9em;
+
+    /* ===== SoundCloud e botões ===== */
+    .soundcloud iframe {
+      border-radius: 15px;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
     }
     a.button {
       display: inline-block;
       margin-top: 20px;
-      padding: 10px 20px;
-      background-color: #ff5500; /* cor laranja para botões */
+      padding: 10px 25px;
+      background: linear-gradient(135deg, #ff6600, #ff3300);
       color: #fff;
       text-decoration: none;
       border-radius: 30px;
       font-weight: bold;
+      transition: 0.3s;
     }
     a.button:hover {
-      background-color: #ff7f2a;
+      background: linear-gradient(135deg, #ff7f2a, #ff4d4d);
     }
+
     .like-btn {
-      background-color: #ff4d4d;
+      background: linear-gradient(135deg, #ff4d4d, #ff1a1a);
       border: none;
       color: white;
       padding: 10px 20px;
       border-radius: 20px;
       cursor: pointer;
       font-size: 1em;
-      transition: background 0.3s;
+      transition: 0.3s;
     }
     .like-btn:hover {
-      background-color: #e03e3e;
+      background: linear-gradient(135deg, #ff6666, #ff3333);
     }
 
-    /* Loja com scroll automático */
-    .scroll-loja {
+    /* ===== Outros lançamentos ===== */
+    #outros-lancamentos {
+      position: relative;
+      padding: 3rem 1rem;
+      background: rgba(255,255,255,0.05);
+      backdrop-filter: blur(10px);
+      color: white;
+      text-align: center;
+      border-radius: 15px;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 0 20px rgba(0,0,0,0.5);
+    }
+    #outros-lancamentos img {
+      width: 100%;
+      max-width: 600px;
+      border-radius: 15px;
+      margin-bottom: 2rem;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+      transition: transform 0.3s;
+    }
+    #outros-lancamentos img:hover {
+      transform: scale(1.03);
+    }
+
+    /* ===== Botão Loja ===== */
+    #botao-loja {
+      position:fixed;
+      bottom:20px;
+      right:20px;
+      z-index:1000;
+      display:inline-block;
+      padding:12px 25px;
+      background: linear-gradient(135deg, #ff6600, #ff3300);
+      color:white;
+      font-weight:bold;
+      text-decoration:none;
+      border-radius:30px;
+      font-size:1.2rem;
+      cursor:pointer;
+      box-shadow:0 5px 15px rgba(0,0,0,0.3);
+      transition:0.3s;
+    }
+    #botao-loja:hover {
+      background: linear-gradient(135deg, #ff7f2a, #ff4d4d);
+    }
+
+    /* ===== Loja ===== */
+    #loja-fake {
+      display:none;
+      position: relative;
+      padding: 3rem 1rem;
+      background: linear-gradient(135deg, #ff8a00, #e52e71);
+      color: white;
+      text-align: center;
+      border-radius: 15px;
+      margin: 2rem auto;
+      max-width: 800px;
+      box-shadow: 0 0 25px rgba(0,0,0,0.5);
+    }
+    #loja-fake .scroll-loja {
       display: flex;
       gap: 20px;
-      justify-content: flex-start;
       overflow-x: hidden;
       padding-bottom: 20px;
     }
-
-    .item-loja {
+    #loja-fake .scroll-loop {
+      display: flex;
+      animation: moveLoja 30s linear infinite;
+    }
+    #loja-fake .item-loja {
       min-width: 200px; 
       background: rgba(255,255,255,0.15); 
       border-radius:15px; 
       padding:10px; 
       backdrop-filter: blur(10px); 
       transition: transform 0.3s;
+      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     }
-
-    /* Animação de scroll horizontal */
-    @keyframes moveLoja {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
+    #loja-fake .item-loja:hover {
+      transform: scale(1.05);
     }
-
-    .scroll-loop {
-      display: flex;
-      animation: moveLoja 30s linear infinite;
-    }
-
-    /* Botão DLC com degradê */
     .botao-dlc {
       width:100%; 
       padding:10px; 
@@ -119,9 +192,22 @@
       cursor:pointer; 
       transition:0.3s;
     }
-
     .botao-dlc:hover {
       background: linear-gradient(135deg, #ff7f2a, #ff4d4d);
+    }
+
+    @keyframes moveLoja {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    footer {
+      text-align: center;
+      padding: 20px;
+      background-color: #4a4a4a;
+      color: #fff;
+      font-size: 0.9em;
+      box-shadow: 0 -4px 15px rgba(0,0,0,0.4);
     }
 
   </style>
@@ -164,64 +250,54 @@
     </div>
   </div>
 
-  <section id="outros-lancamentos" style="position: relative; padding: 3rem 1rem; background: #4a4a4a; color: white; text-align: center; border-radius: 12px; margin: 2rem auto; max-width: 800px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+  <section id="outros-lancamentos">
     <div style="position: absolute; top: 10px; right: 15px; background-color: #ff5500; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">
       Versão 2.0
     </div>
 
-    <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-family: 'Segoe UI', sans-serif;">OUTROS LANÇAMENTOS</h2>
-    <p style="font-size: 1.2rem; margin-bottom: 2rem; font-family: 'Segoe UI', sans-serif;">
-      Descubra mais faixas do JJ e mergulhe no som.
-    </p>
+    <h2>OUTROS LANÇAMENTOS</h2>
+    <p>Descubra mais faixas do JJ e mergulhe no som.</p>
 
     <img 
       src="https://i.postimg.cc/SRYw9gbm/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png" 
-      alt="Capa do lançamento" 
-      style="width: 100%; max-width: 600px; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
+      alt="Capa do lançamento">
 
     <a href="https://on.soundcloud.com/lMjZtus26xA6kpCk3t" target="_blank" class="button">🔊 Ouvir no SoundCloud</a>
   </section>
 
-  <!-- Botão fixo para entrar/fechar a loja -->
-  <a id="botao-loja" 
-     style="position:fixed; bottom:20px; right:20px; z-index:1000; display:inline-block; padding:12px 25px; background:#ff5500; color:white; font-weight:bold; text-decoration:none; border-radius:30px; font-size:1.2rem; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.3); transition:0.3s;">
-     ➤ Loja
-  </a>
+  <!-- Botão Loja -->
+  <a id="botao-loja">➤ Loja</a>
 
-  <!-- Loja Fake inicialmente escondida -->
-  <section id="loja-fake" style="display:none; position: relative; padding: 3rem 1rem; background: linear-gradient(135deg, #ff8a00, #e52e71); color: white; text-align: center; border-radius: 12px; margin: 2rem auto; max-width: 800px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
-    <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-family: 'Segoe UI', sans-serif;">LOJA FANTASIA</h2>
-    <p style="font-size: 1.1rem; margin-bottom: 2rem; font-family: 'Segoe UI', sans-serif; font-weight:bold;">
-      Essa loja não tem dinheiro real, pode gastar seu saldo no que quiser
-    </p>
+  <!-- Loja -->
+  <section id="loja-fake">
+    <h2>LOJA FANTASIA</h2>
+    <p>Essa loja não tem dinheiro real, pode gastar seu saldo no que quiser</p>
     <div style="position: absolute; top: 10px; right: 15px; background-color: #ff5500; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">
       Saldo: ∞ X Points
     </div>
 
     <div class="scroll-loja">
       <div class="scroll-loop">
-        <!-- DLC 1 -->
         <div class="item-loja">
-          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png">
           <div style="font-weight:bold; margin-bottom:10px;">Preço: 1500 X Points</div>
-          <button onclick="comprar(1500, 1)" class="botao-dlc">Comprar</button>
+          <button onclick="comprar(1500,1)" class="botao-dlc">Comprar</button>
         </div>
-        <!-- DLC 2 -->
         <div class="item-loja">
-          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png">
           <div style="font-weight:bold; margin-bottom:10px;">Preço: 1300 X Points</div>
-          <button onclick="comprar(1300, 2)" class="botao-dlc">Comprar</button>
+          <button onclick="comprar(1300,2)" class="botao-dlc">Comprar</button>
         </div>
-        <!-- DLCs repetidas para loop -->
+        <!-- Repetição para loop -->
         <div class="item-loja">
-          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png">
           <div style="font-weight:bold; margin-bottom:10px;">Preço: 1500 X Points</div>
-          <button onclick="comprar(1500, 1)" class="botao-dlc">Comprar</button>
+          <button onclick="comprar(1500,1)" class="botao-dlc">Comprar</button>
         </div>
         <div class="item-loja">
-          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png">
           <div style="font-weight:bold; margin-bottom:10px;">Preço: 1300 X Points</div>
-          <button onclick="comprar(1300, 2)" class="botao-dlc">Comprar</button>
+          <button onclick="comprar(1300,2)" class="botao-dlc">Comprar</button>
         </div>
       </div>
     </div>
@@ -305,15 +381,7 @@
           : 'https://on.soundcloud.com/uKqJ2MoMIe9OAhJ4Jp';
         
         msg.innerHTML = `Compra concluída! <br>
-          <a href="${linkSC}" target="_blank" style="
-            display:inline-block; 
-            margin-top:10px; 
-            padding:8px 15px; 
-            background: linear-gradient(135deg, #ff6600, #ff3300); 
-            color:white; 
-            border-radius:8px; 
-            text-decoration:none; 
-            font-weight:bold;">Ouvir no SoundCloud</a>`;
+          <a href="${linkSC}" target="_blank" class="button">Ouvir no SoundCloud</a>`;
       }, 1200);
     }
   </script>
