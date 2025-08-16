@@ -8,11 +8,11 @@
     body {
       margin: 0;
       font-family: 'Montserrat', sans-serif;
-      background-color: #2e004f;
+      background-color: #3a3a3a; /* cinza escuro */
       color: #ffffff;
     }
     header {
-      background-color: #6A0DAD;
+      background-color: #4a4a4a; /* cinza mais escuro */
       padding: 20px;
       text-align: center;
     }
@@ -34,7 +34,7 @@
       max-width: 800px;
       margin: auto;
       padding: 20px;
-      background-color: #3d0070;
+      background-color: #5a5a5a; /* cinza médio */
       border-radius: 10px;
     }
     .content h2 {
@@ -47,7 +47,7 @@
     footer {
       text-align: center;
       padding: 20px;
-      background-color: #6A0DAD;
+      background-color: #4a4a4a;
       color: #fff;
       font-size: 0.9em;
     }
@@ -55,16 +55,15 @@
       display: inline-block;
       margin-top: 20px;
       padding: 10px 20px;
-      background-color: #caa0ff;
-      color: #2e004f;
+      background-color: #ff5500; /* cor laranja para botões */
+      color: #fff;
       text-decoration: none;
-      border-radius: 5px;
+      border-radius: 30px;
       font-weight: bold;
     }
     a.button:hover {
-      background-color: #ffffff;
+      background-color: #ff7f2a;
     }
-    /* Botão de like */
     .like-btn {
       background-color: #ff4d4d;
       border: none;
@@ -78,6 +77,53 @@
     .like-btn:hover {
       background-color: #e03e3e;
     }
+
+    /* Loja com scroll automático */
+    .scroll-loja {
+      display: flex;
+      gap: 20px;
+      justify-content: flex-start;
+      overflow-x: hidden;
+      padding-bottom: 20px;
+    }
+
+    .item-loja {
+      min-width: 200px; 
+      background: rgba(255,255,255,0.15); 
+      border-radius:15px; 
+      padding:10px; 
+      backdrop-filter: blur(10px); 
+      transition: transform 0.3s;
+    }
+
+    /* Animação de scroll horizontal */
+    @keyframes moveLoja {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(-50%); }
+    }
+
+    .scroll-loop {
+      display: flex;
+      animation: moveLoja 30s linear infinite;
+    }
+
+    /* Botão DLC com degradê */
+    .botao-dlc {
+      width:100%; 
+      padding:10px; 
+      border:none; 
+      border-radius:8px; 
+      background: linear-gradient(135deg, #ff6600, #ff3300); 
+      color:white; 
+      font-weight:bold; 
+      cursor:pointer; 
+      transition:0.3s;
+    }
+
+    .botao-dlc:hover {
+      background: linear-gradient(135deg, #ff7f2a, #ff4d4d);
+    }
+
   </style>
 </head>
 <body>
@@ -111,7 +157,6 @@
 
       <a class="button" href="https://on.soundcloud.com/44wXuOsppKWShmnftL" target="_blank">Ouça no SoundCloud</a>
 
-      <!-- Botão de Like com contador -->
       <div style="text-align:center; margin-top:20px;">
         <button id="likeButton" class="like-btn">👍 Curtir</button>
         <span id="likeCount" style="margin-left:10px; font-weight:bold;">0</span>
@@ -119,7 +164,7 @@
     </div>
   </div>
 
-  <section id="outros-lancamentos" style="position: relative; padding: 3rem 1rem; background: linear-gradient(135deg, #2c2c2c, #1a1a1a); color: white; text-align: center; border-radius: 12px; margin: 2rem auto; max-width: 800px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+  <section id="outros-lancamentos" style="position: relative; padding: 3rem 1rem; background: #4a4a4a; color: white; text-align: center; border-radius: 12px; margin: 2rem auto; max-width: 800px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
     <div style="position: absolute; top: 10px; right: 15px; background-color: #ff5500; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">
       Versão 2.0
     </div>
@@ -134,19 +179,63 @@
       alt="Capa do lançamento" 
       style="width: 100%; max-width: 600px; border-radius: 10px; margin-bottom: 2rem; box-shadow: 0 0 10px rgba(0,0,0,0.3);">
 
-    <a href="https://on.soundcloud.com/lMjZtus26xA6kpCk3t" target="_blank" style="display: inline-block; padding: 0.8rem 2rem; background-color: #ff5500; color: white; text-decoration: none; border-radius: 30px; font-size: 1.1rem; font-weight: bold; transition: background 0.3s;">
-      🔊 Ouvir no SoundCloud
-    </a>
+    <a href="https://on.soundcloud.com/lMjZtus26xA6kpCk3t" target="_blank" class="button">🔊 Ouvir no SoundCloud</a>
+  </section>
+
+  <!-- Botão fixo para entrar/fechar a loja -->
+  <a id="botao-loja" 
+     style="position:fixed; bottom:20px; right:20px; z-index:1000; display:inline-block; padding:12px 25px; background:#ff5500; color:white; font-weight:bold; text-decoration:none; border-radius:30px; font-size:1.2rem; cursor:pointer; box-shadow:0 5px 15px rgba(0,0,0,0.3); transition:0.3s;">
+     ➤ Loja
+  </a>
+
+  <!-- Loja Fake inicialmente escondida -->
+  <section id="loja-fake" style="display:none; position: relative; padding: 3rem 1rem; background: linear-gradient(135deg, #ff8a00, #e52e71); color: white; text-align: center; border-radius: 12px; margin: 2rem auto; max-width: 800px; box-shadow: 0 0 20px rgba(0,0,0,0.5);">
+    <h2 style="font-size: 2.5rem; margin-bottom: 1rem; font-family: 'Segoe UI', sans-serif;">LOJA FANTASIA</h2>
+    <p style="font-size: 1.1rem; margin-bottom: 2rem; font-family: 'Segoe UI', sans-serif; font-weight:bold;">
+      Essa loja não tem dinheiro real, pode gastar seu saldo no que quiser
+    </p>
+    <div style="position: absolute; top: 10px; right: 15px; background-color: #ff5500; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">
+      Saldo: ∞ X Points
+    </div>
+
+    <div class="scroll-loja">
+      <div class="scroll-loop">
+        <!-- DLC 1 -->
+        <div class="item-loja">
+          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1500 X Points</div>
+          <button onclick="comprar(1500, 1)" class="botao-dlc">Comprar</button>
+        </div>
+        <!-- DLC 2 -->
+        <div class="item-loja">
+          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1300 X Points</div>
+          <button onclick="comprar(1300, 2)" class="botao-dlc">Comprar</button>
+        </div>
+        <!-- DLCs repetidas para loop -->
+        <div class="item-loja">
+          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1500 X Points</div>
+          <button onclick="comprar(1500, 1)" class="botao-dlc">Comprar</button>
+        </div>
+        <div class="item-loja">
+          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png" style="width:100%; border-radius:10px; margin-bottom:10px;">
+          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1300 X Points</div>
+          <button onclick="comprar(1300, 2)" class="botao-dlc">Comprar</button>
+        </div>
+      </div>
+    </div>
+    <div id="mensagem-loja" style="margin-top:15px; font-weight:bold; font-size:1.1em;"></div>
   </section>
 
   <footer>
     © 2025 JJ Music — Todos os direitos reservados
   </footer>
 
-  <!-- Firebase v9+ com Realtime Database -->
+  <!-- Firebase e scripts -->
   <script type="module">
     import { initializeApp } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-app.js";
-    import { getDatabase, ref, onValue, runTransaction } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
+    import { getDatabase, ref, onValue, runTransaction, set } from "https://www.gstatic.com/firebasejs/9.23.0/firebase-database.js";
 
     const firebaseConfig = {
       apiKey: "AIzaSyAOqpjm9MAk78ZHY5NPGCCycl7xVWBvfB8",
@@ -166,18 +255,67 @@
     const likeCount = document.getElementById("likeCount");
     const likesRef = ref(db, "likes");
 
-    // Atualizar contador em tempo real
     onValue(likesRef, (snapshot) => {
-      likeCount.textContent = snapshot.val() || 0;
+      if (snapshot.exists()) {
+        likeCount.textContent = snapshot.val();
+      } else {
+        set(likesRef, 0);
+        likeCount.textContent = 0;
+      }
     });
 
-    // Incrementar ao clicar
+    if (localStorage.getItem("liked")) {
+      likeBtn.disabled = true;
+      likeBtn.textContent = "✅ Curtido";
+    }
+
     likeBtn.addEventListener("click", () => {
-      runTransaction(likesRef, (currentLikes) => {
-        return (currentLikes || 0) + 1;
-      });
+      if (!localStorage.getItem("liked")) {
+        runTransaction(likesRef, (currentLikes) => {
+          return (currentLikes || 0) + 1;
+        }).then(() => {
+          localStorage.setItem("liked", "true");
+          likeBtn.disabled = true;
+          likeBtn.textContent = "✅ Curtido";
+        });
+      }
     });
-  </script>
 
+    const botaoLoja = document.getElementById('botao-loja');
+    const loja = document.getElementById('loja-fake');
+
+    botaoLoja.addEventListener('click', () => {
+      if (loja.style.display === 'none') {
+        loja.style.display = 'block';
+        botaoLoja.textContent = '✖ Fechar Loja';
+        loja.scrollIntoView({behavior: 'smooth'});
+      } else {
+        loja.style.display = 'none';
+        botaoLoja.textContent = '➤ Loja';
+      }
+    });
+
+    function comprar(preco, dlc){
+      const msg = document.getElementById('mensagem-loja');
+      msg.innerHTML = `Compra realizada com sucesso! Você gastou ${preco} X Points do seu saldo infinito.`;
+
+      setTimeout(()=>{
+        let linkSC = dlc === 1 
+          ? 'https://on.soundcloud.com/zhoKZGE6uJllnmvzdB' 
+          : 'https://on.soundcloud.com/uKqJ2MoMIe9OAhJ4Jp';
+        
+        msg.innerHTML = `Compra concluída! <br>
+          <a href="${linkSC}" target="_blank" style="
+            display:inline-block; 
+            margin-top:10px; 
+            padding:8px 15px; 
+            background: linear-gradient(135deg, #ff6600, #ff3300); 
+            color:white; 
+            border-radius:8px; 
+            text-decoration:none; 
+            font-weight:bold;">Ouvir no SoundCloud</a>`;
+      }, 1200);
+    }
+  </script>
 </body>
 </html>
