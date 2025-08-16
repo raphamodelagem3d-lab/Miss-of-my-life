@@ -64,6 +64,20 @@
     a.button:hover {
       background-color: #ffffff;
     }
+    /* Botão de like */
+    .like-btn {
+      background-color: #ff4d4d;
+      border: none;
+      color: white;
+      padding: 10px 20px;
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 1em;
+      transition: background 0.3s;
+    }
+    .like-btn:hover {
+      background-color: #e03e3e;
+    }
   </style>
 </head>
 <body>
@@ -96,6 +110,12 @@
       </iframe>
 
       <a class="button" href="https://on.soundcloud.com/44wXuOsppKWShmnftL" target="_blank">Ouça no SoundCloud</a>
+
+      <!-- Botão de Like com contador -->
+      <div style="text-align:center; margin-top:20px;">
+        <button id="likeButton" class="like-btn">👍 Curtir</button>
+        <span id="likeCount" style="margin-left:10px; font-weight:bold;">0</span>
+      </div>
     </div>
   </div>
 
@@ -122,6 +142,42 @@
   <footer>
     © 2025 JJ Music — Todos os direitos reservados
   </footer>
+
+  <!-- Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.10.1/firebase-database.js"></script>
+
+  <script>
+    const firebaseConfig = {
+      apiKey: "AIzaSyAOqpjm9MAk78ZHY5NPGCCycl7xVWBvfB8",
+      authDomain: "my-life-site-41762.firebaseapp.com",
+      databaseURL: "https://my-life-site-41762-default-rtdb.firebaseio.com/",
+      projectId: "my-life-site-41762",
+      storageBucket: "my-life-site-41762.firebasestorage.app",
+      messagingSenderId: "1053842261224",
+      appId: "1:1053842261224:web:f3b473a94bfd797c17755d",
+      measurementId: "G-169C1T1W9Y"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+    const db = firebase.database();
+    const likesRef = db.ref("likes");
+
+    const likeBtn = document.getElementById("likeButton");
+    const likeCount = document.getElementById("likeCount");
+
+    // Atualizar contador em tempo real
+    likesRef.on("value", (snapshot) => {
+      likeCount.textContent = snapshot.val() || 0;
+    });
+
+    // Incrementar ao clicar
+    likeBtn.addEventListener("click", () => {
+      likesRef.transaction((currentLikes) => {
+        return (currentLikes || 0) + 1;
+      });
+    });
+  </script>
 
 </body>
 </html>
