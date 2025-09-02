@@ -146,61 +146,6 @@
       background: linear-gradient(135deg, #ff7f2a, #ff4d4d);
     }
 
-    /* ===== Loja ===== */
-    #loja-fake {
-      display:none;
-      position: relative;
-      padding: 3rem 1rem;
-      background: linear-gradient(135deg, #ff8a00, #e52e71);
-      color: white;
-      text-align: center;
-      border-radius: 15px;
-      margin: 2rem auto;
-      max-width: 800px;
-      box-shadow: 0 0 25px rgba(0,0,0,0.5);
-    }
-    #loja-fake .scroll-loja {
-      display: flex;
-      gap: 20px;
-      overflow-x: hidden;
-      padding-bottom: 20px;
-    }
-    #loja-fake .scroll-loop {
-      display: flex;
-      animation: moveLoja 30s linear infinite;
-    }
-    #loja-fake .item-loja {
-      min-width: 200px; 
-      background: rgba(255,255,255,0.15); 
-      border-radius:15px; 
-      padding:10px; 
-      backdrop-filter: blur(10px); 
-      transition: transform 0.3s;
-      box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-    }
-    #loja-fake .item-loja:hover {
-      transform: scale(1.05);
-    }
-    .botao-dlc {
-      width:100%; 
-      padding:10px; 
-      border:none; 
-      border-radius:8px; 
-      background: linear-gradient(135deg, #ff6600, #ff3300); 
-      color:white; 
-      font-weight:bold; 
-      cursor:pointer; 
-      transition:0.3s;
-    }
-    .botao-dlc:hover {
-      background: linear-gradient(135deg, #ff7f2a, #ff4d4d);
-    }
-
-    @keyframes moveLoja {
-      0% { transform: translateX(0); }
-      100% { transform: translateX(-50%); }
-    }
-
     footer {
       text-align: center;
       padding: 20px;
@@ -209,7 +154,6 @@
       font-size: 0.9em;
       box-shadow: 0 -4px 15px rgba(0,0,0,0.4);
     }
-
   </style>
 </head>
 <body>
@@ -266,43 +210,7 @@
   </section>
 
   <!-- Botão Loja -->
-  <a id="botao-loja">➤ Loja</a>
-
-  <!-- Loja -->
-  <section id="loja-fake">
-    <h2>LOJA FANTASIA</h2>
-    <p>Essa loja não tem dinheiro real, pode gastar seu saldo no que quiser</p>
-    <div style="position: absolute; top: 10px; right: 15px; background-color: #ff5500; color: white; padding: 5px 10px; border-radius: 20px; font-size: 0.9rem; font-weight: bold;">
-      Saldo: ∞ X Points
-    </div>
-
-    <div class="scroll-loja">
-      <div class="scroll-loop">
-        <div class="item-loja">
-          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png">
-          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1500 X Points</div>
-          <button onclick="comprar(1500,1)" class="botao-dlc">Comprar</button>
-        </div>
-        <div class="item-loja">
-          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png">
-          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1300 X Points</div>
-          <button onclick="comprar(1300,2)" class="botao-dlc">Comprar</button>
-        </div>
-        <!-- Repetição para loop -->
-        <div class="item-loja">
-          <img src="https://i.postimg.cc/SJSJXNM2/A339791-D-28-CA-4-C61-9396-30-F2-BE84-CEEE.png">
-          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1500 X Points</div>
-          <button onclick="comprar(1500,1)" class="botao-dlc">Comprar</button>
-        </div>
-        <div class="item-loja">
-          <img src="https://i.postimg.cc/qzfhHZTm/IMG-0073.png">
-          <div style="font-weight:bold; margin-bottom:10px;">Preço: 1300 X Points</div>
-          <button onclick="comprar(1300,2)" class="botao-dlc">Comprar</button>
-        </div>
-      </div>
-    </div>
-    <div id="mensagem-loja" style="margin-top:15px; font-weight:bold; font-size:1.1em;"></div>
-  </section>
+  <a id="botao-loja" href="https://raphamodelagem3d-lab.github.io/Minha-loja-falsa/" target="_blank">➤ Loja</a>
 
   <footer>
     © 2025 JJ Music — Todos os direitos reservados
@@ -356,34 +264,6 @@
         });
       }
     });
-
-    const botaoLoja = document.getElementById('botao-loja');
-    const loja = document.getElementById('loja-fake');
-
-    botaoLoja.addEventListener('click', () => {
-      if (loja.style.display === 'none') {
-        loja.style.display = 'block';
-        botaoLoja.textContent = '✖ Fechar Loja';
-        loja.scrollIntoView({behavior: 'smooth'});
-      } else {
-        loja.style.display = 'none';
-        botaoLoja.textContent = '➤ Loja';
-      }
-    });
-
-    function comprar(preco, dlc){
-      const msg = document.getElementById('mensagem-loja');
-      msg.innerHTML = `Compra realizada com sucesso! Você gastou ${preco} X Points do seu saldo infinito.`;
-
-      setTimeout(()=>{
-        let linkSC = dlc === 1 
-          ? 'https://on.soundcloud.com/zhoKZGE6uJllnmvzdB' 
-          : 'https://on.soundcloud.com/uKqJ2MoMIe9OAhJ4Jp';
-        
-        msg.innerHTML = `Compra concluída! <br>
-          <a href="${linkSC}" target="_blank" class="button">Ouvir no SoundCloud</a>`;
-      }, 1200);
-    }
   </script>
 </body>
 </html>
